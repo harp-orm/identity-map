@@ -14,12 +14,12 @@ namespace Harp\IdentityMap;
 class IdentityMap
 {
     /**
-     * @var ItemInterface[]
+     * @var IdentityMapItemInterface[]
      */
     private $items = [];
 
     /**
-     * @var ItemInterface[]
+     * @var IdentityMapItemInterface[]
      */
     public function getItems()
     {
@@ -30,10 +30,10 @@ class IdentityMap
      * If a item with the same key already exist in the identity map return that item.
      * Only handle items that have non-null keys
      *
-     * @param  ItemInterface $item
-     * @return ItemInterface
+     * @param  IdentityMapItemInterface $item
+     * @return IdentityMapItemInterface
      */
-    public function get(ItemInterface $item)
+    public function get(IdentityMapItemInterface $item)
     {
         $key = $item->getIdentityKey();
 
@@ -49,10 +49,10 @@ class IdentityMap
     }
 
     /**
-     * @param  ItemInterface $item
+     * @param  IdentityMapItemInterface $item
      * @return boolean
      */
-    public function has(ItemInterface $item)
+    public function has(IdentityMapItemInterface $item)
     {
         $key = $item->getIdentityKey();
 
@@ -64,8 +64,8 @@ class IdentityMap
     /**
      * Call the "get" method for a whole array of items
      *
-     * @param  ItemInterface[] $items
-     * @return ItemInterface[]
+     * @param  IdentityMapItemInterface[] $items
+     * @return IdentityMapItemInterface[]
      */
     public function getArray(array $items)
     {

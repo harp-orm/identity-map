@@ -2,14 +2,14 @@
 
 namespace Harp\IdentityMap\Test;
 
-use Harp\IdentityMap\ItemInterface;
+use Harp\IdentityMap\IdentityMapItemInterface;
 
 /**
  * @author     Ivan Kerin <ikerin@gmail.com>
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://spdx.org/licenses/BSD-3-Clause
  */
-class Item implements ItemInterface
+class Item implements IdentityMapItemInterface
 {
     private $identityKey;
 
