@@ -1,0 +1,32 @@
+language: php
+
+php:
+  - 5.4
+  - 5.5
+  - hhvm-nightly
+
+matrix:
+  allow_failures:
+    - php: hhvm-nightly
+
+notifications:
+  email: false
+  slack:
+    secure: ZvnEeOf4SGN1JPwc+E9Ad70r9X3gl5WvNKjp1d3313GwAzs0xJihKWKGweYgbImHgTrvpMw17dqrds8HSOclKmJ7UWy7JcUJ23qSD+kDmYlDw/k6dPwCD6Zs2FO49XgFd/hzXK2PI+pjhbmH5CNR7LioyuJBQMKnATaC72iGrJs=
+
+
+before_install:
+  - composer selfupdate
+
+install:
+  - composer install
+
+before_script:
+  - mkdir -p build/logs
+
+script:
+  - phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+  - test -e build/logs/clover.xml && wget https://scrutinizer-ci.com/ocular.phar
+  - test -e build/logs/clover.xml && php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
