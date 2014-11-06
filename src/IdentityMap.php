@@ -35,7 +35,7 @@ class IdentityMap
      */
     public function get(IdentityMapItemInterface $item)
     {
-        $key = $item->getIdentityKey();
+        $key = $item->getId();
 
         if ($key !== null) {
             if (isset($this->items[$key])) {
@@ -54,7 +54,7 @@ class IdentityMap
      */
     public function has(IdentityMapItemInterface $item)
     {
-        $key = $item->getIdentityKey();
+        $key = $item->getId();
 
         return $key === null
             ? null

@@ -29,7 +29,7 @@ That way you can make sure items with the same key are the same physical objects
 
 --------
 
-You'll need to impelement IdentityMapItemInterface on your objects, that has "getIdentityKey" method. Objects who's getIdentityKey return null do not get mapped at all.
+You'll need to impelement IdentityMapItemInterface on your objects, that has "getId" method. Objects who's getId return null do not get mapped at all.
 
 ```
 class Item implements IdentityMapItemInterface
@@ -41,7 +41,7 @@ class Item implements IdentityMapItemInterface
         $this->identityKey = $identityKey;
     }
 
-    public function getIdentityKey()
+    public function getId()
     {
         return $this->identityKey;
     }

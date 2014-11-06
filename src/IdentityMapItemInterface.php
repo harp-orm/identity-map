@@ -12,5 +12,5 @@ interface IdentityMapItemInterface
     /**
      * @return string|null
      */
-    public function getIdentityKey();
+    public function getId();
 }
