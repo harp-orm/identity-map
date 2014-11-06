@@ -2,6 +2,8 @@
 
 namespace Harp\IdentityMap;
 
+use Closure;
+
 /**
  * Each loaded item is passed through the IdentityMap. If another item with the same ID is already present,
  * then that item is returned. This means that you will retrieve the same object each time you load items
@@ -14,28 +16,42 @@ namespace Harp\IdentityMap;
 class IdentityMap
 {
     /**
-     * @var IdentityMapItemInterface[]
+     * @var array
      */
     private $items = [];
 
     /**
-     * @var IdentityMapItemInterface[]
+     * @var array
      */
     public function getItems()
     {
         return $this->items;
     }
 
+    private $identityCallback;
+
+    public function __construct(Closure $identityCallback)
+    {
+        $this->identityCallback = $identityCallback;
+    }
+
+    public function getItemKey($item)
+    {
+        $callback = $this->identityCallback;
+
+        return $callback($item);
+    }
+
     /**
      * If a item with the same key already exist in the identity map return that item.
      * Only handle items that have non-null keys
      *
-     * @param  IdentityMapItemInterface $item
-     * @return IdentityMapItemInterface
+     * @param  mixed $item
+     * @return mixed
      */
-    public function get(IdentityMapItemInterface $item)
+    public function get($item)
     {
-        $key = $item->getId();
+        $key = $this->getItemKey($item);
 
         if ($key !== null) {
             if (isset($this->items[$key])) {
@@ -49,12 +65,12 @@ class IdentityMap
     }
 
     /**
-     * @param  IdentityMapItemInterface $item
+     * @param  mixed $item
      * @return boolean
      */
-    public function has(IdentityMapItemInterface $item)
+    public function has($item)
     {
-        $key = $item->getId();
+        $key = $this->getItemKey($item);
 
         return $key === null
             ? null

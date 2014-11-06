@@ -3,6 +3,7 @@
 namespace Harp\IdentityMap\Test;
 
 use Harp\IdentityMap\IdentityMap;
+use PHPUnit_Framework_TestCase;
 
 /**
  * @coversDefaultClass Harp\IdentityMap\IdentityMap
@@ -11,14 +12,16 @@ use Harp\IdentityMap\IdentityMap;
  * @copyright  (c) 2014 Clippings Ltd.
  * @license    http://spdx.org/licenses/BSD-3-Clause
  */
-class IdentityMapTest extends AbstractTestCase
+class IdentityMapTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @covers ::getItems
      */
     public function testGetItems()
     {
-        $map = new IdentityMap();
+        $map = new IdentityMap(function ($item) {
+            return $item->getIdentityKey();
+        });
 
         $item1 = new Item(1);
         $item2 = new Item(2);
@@ -36,11 +39,29 @@ class IdentityMapTest extends AbstractTestCase
     }
 
     /**
+     * @covers ::getItemKey
+     */
+    public function testGetItemKey()
+    {
+        $map = new IdentityMap(function ($item) {
+            return $item->getIdentityKey();
+        });
+
+        $item1 = new Item(1);
+        $item2 = new Item(2);
+
+        $this->assertSame(1, $map->getItemKey($item1));
+        $this->assertSame(2, $map->getItemKey($item2));
+    }
+
+    /**
      * @covers ::get
      */
     public function testGet()
     {
-        $map = new IdentityMap();
+        $map = new IdentityMap(function ($item) {
+            return $item->getIdentityKey();
+        });
 
         $item1 = new Item(1);
         $item2 = new Item(1);
@@ -58,7 +79,7 @@ class IdentityMapTest extends AbstractTestCase
      */
     public function testGetArray()
     {
-        $map = $this->getMock('Harp\IdentityMap\IdentityMap', ['get']);
+        $map = $this->getMock('Harp\IdentityMap\IdentityMap', ['get'], [function() {}]);
 
         $item1 = new Item();
         $item2 = new Item();
@@ -82,7 +103,9 @@ class IdentityMapTest extends AbstractTestCase
      */
     public function testHas()
     {
-        $map = new IdentityMap();
+        $map = new IdentityMap(function ($item) {
+            return $item->getIdentityKey();
+        });
 
         $item = new Item(1);
 
@@ -98,7 +121,9 @@ class IdentityMapTest extends AbstractTestCase
      */
     public function testClear()
     {
-        $map = new IdentityMap();
+        $map = new IdentityMap(function ($item) {
+            return $item->getIdentityKey();
+        });
 
         $item1 = new Item(1);
         $item2 = new Item(2);

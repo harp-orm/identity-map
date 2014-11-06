@@ -11,10 +11,12 @@ This package allows having "canonical objects".
 Usage
 -----
 
-Assuming "new Item(1)" will have identityKey of "1":
+Assuming "new Item(1)" will have id of "1":
 
 ```php
-$map = new IdentityMap();
+$map = new IdentityMap(function ($item) {
+    return $item->getId();
+});
 
 $item1 = new Item(1);
 $item2 = new Item(1);
@@ -29,24 +31,7 @@ That way you can make sure items with the same key are the same physical objects
 
 --------
 
-You'll need to impelement IdentityMapItemInterface on your objects, that has "getId" method. Objects who's getId return null do not get mapped at all.
-
-```
-class Item implements IdentityMapItemInterface
-{
-    private $identityKey;
-
-    public function __construct($identityKey = null)
-    {
-        $this->identityKey = $identityKey;
-    }
-
-    public function getId()
-    {
-        return $this->identityKey;
-    }
-}
-````
+The closure argument that use pass to the identity map, needs to return the "unique key" for each product.
 
 License
 -------
