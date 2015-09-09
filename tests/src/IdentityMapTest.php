@@ -15,6 +15,7 @@ use PHPUnit_Framework_TestCase;
 class IdentityMapTest extends PHPUnit_Framework_TestCase
 {
     /**
+     * @covers ::__construct
      * @covers ::getItems
      */
     public function testGetItems()
@@ -34,7 +35,8 @@ class IdentityMapTest extends PHPUnit_Framework_TestCase
                 $item1->getIdentityKey() => $item1,
                 $item2->getIdentityKey() => $item2,
             ],
-            $map->getItems()
+            $map->getItems(),
+            'Should add items with proper identity key'
         );
     }
 
@@ -114,6 +116,9 @@ class IdentityMapTest extends PHPUnit_Framework_TestCase
         $map->get($item);
 
         $this->assertTrue($map->has($item));
+
+        $nullItem = new Item(null);
+        $this->assertFalse($map->has($nullItem));
     }
 
     /**

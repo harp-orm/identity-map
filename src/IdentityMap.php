@@ -53,7 +53,7 @@ class IdentityMap
     {
         $key = $this->getItemKey($item);
 
-        if ($key !== null) {
+        if (null !== $key) {
             if (isset($this->items[$key])) {
                 $item = $this->items[$key];
             } else {
@@ -72,9 +72,11 @@ class IdentityMap
     {
         $key = $this->getItemKey($item);
 
-        return $key === null
-            ? null
-            : isset($this->items[$key]);
+        if (null !== $key) {
+            return isset($this->items[$key]);
+        }
+
+        return false;
     }
 
     /**
