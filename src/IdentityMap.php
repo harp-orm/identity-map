@@ -2,8 +2,6 @@
 
 namespace Harp\IdentityMap;
 
-use Closure;
-
 /**
  * Each loaded item is passed through the IdentityMap. If another item with the same ID is already present,
  * then that item is returned. This means that you will retrieve the same object each time you load items
@@ -28,9 +26,23 @@ class IdentityMap
         return $this->items;
     }
 
+    /**
+     * A callback to retrieve the items' id
+     *
+     * Example:
+     *
+     * function (Model $item) {
+     *     return $item->getId();
+     * }
+     *
+     * @var callable
+     */
     private $identityCallback;
 
-    public function __construct(Closure $identityCallback)
+    /**
+     * @param callable $identityCallback
+     */
+    public function __construct(callable $identityCallback)
     {
         $this->identityCallback = $identityCallback;
     }
