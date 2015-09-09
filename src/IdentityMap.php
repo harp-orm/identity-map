@@ -47,6 +47,10 @@ class IdentityMap
         $this->identityCallback = $identityCallback;
     }
 
+    /**
+     * @param  mixed $item
+     * @return mixed
+     */
     public function getItemKey($item)
     {
         $callback = $this->identityCallback;
@@ -77,7 +81,7 @@ class IdentityMap
     }
 
     /**
-     * @param  mixed $item
+     * @param  mixed   $item
      * @return boolean
      */
     public function has($item)
@@ -94,8 +98,8 @@ class IdentityMap
     /**
      * Call the "get" method for a whole array of items
      *
-     * @param  IdentityMapItemInterface[] $items
-     * @return IdentityMapItemInterface[]
+     * @param  array $items
+     * @return array
      */
     public function getArray(array $items)
     {
