@@ -36,6 +36,6 @@ The closure argument that use pass to the identity map, needs to return the "uni
 License
 -------
 
-Copyright (c) 2014, Clippings Ltd. Developed by Ivan Kerin
+Copyright (c) 2014-2015, Clippings Ltd. Developed by [Ivan Kerin](https://github.com/ivank) as part of [Clippings.com](https://clippings.com)
 
 Under BSD-3-Clause license, read LICENSE file.
